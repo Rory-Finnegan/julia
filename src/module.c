@@ -221,8 +221,12 @@ static void module_import_(jl_module_t *to, jl_module_t *from, jl_sym_t *s,
                     return;
                 }
                 jl_printf(JL_STDERR,
-                          "Warning: import of %s.%s into %s conflicts with an existing identifier; ignored.\n",
-                          from->name->name, s->name, to->name->name);
+                          "Warning: import of %s.%s into %s conflicts with an existing identifier; ignored.\n"
+                          "If you are attempting to extend %s.%s in %s, you must explicitly import %s.%s "
+                          "prior to declaring %s.%s",
+                          from->name->name, s->name, to->name->name,
+                          from->name->name, s->name, to->name->name,
+                          from->name->name, s->name, from->name->name, to->name->name);
             }
             else {
                 bto->owner = b->owner;
